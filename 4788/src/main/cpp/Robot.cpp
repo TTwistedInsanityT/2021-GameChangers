@@ -3,45 +3,31 @@
 using namespace frc;
 using namespace wml;
 
-double currentTimeStamp;
+using hand = frc::XboxController::JoystickHand;
+
+double currentTime;
 double lastTimeStamp;
-double dt;
+double dt; //stands for delta time 
 
-// Robot Logiccd
+//add other variables here
+double sparkSpeed;
+double talonSpeed;
+double constexpr deadzone = 0.1;
+
+// Robot Logic
 void Robot::RobotInit() {
-	// Init the controllers
-	ControlMap::InitsmartControllerGroup(robotMap.contGroup);
+	//init controllers 
+	xbox = new frc::XboxController(0);
 
-	// Create wml drivetrain
-	drivetrain = new Drivetrain(robotMap.driveSystem.drivetrainConfig, robotMap.driveSystem.gainsVelocity);
+	//Motor examples 
+	_sparkMotor = new frc::Spark(0);
+	_talonMotor = new wml::TalonSrx(1);
 
-	
-	// Zero Encoders
-	robotMap.driveSystem.drivetrain.GetConfig().leftDrive.encoder->ZeroEncoder();
-	robotMap.driveSystem.drivetrain.GetConfig().rightDrive.encoder->ZeroEncoder();
-
-	// Strategy controllers (Set default strategy for drivetrain to be Manual)
-	drivetrain->SetDefault(std::make_shared<DrivetrainManual>("Drivetrain Manual", *drivetrain, robotMap.contGroup));
-	drivetrain->StartLoop(100);
-
-	// Inverts one side of our drivetrain
-	drivetrain->GetConfig().rightDrive.transmission->SetInverted(true);
-	drivetrain->GetConfig().leftDrive.transmission->SetInverted(false);
-
-	// Register our systems to be called via strategy
-	StrategyController::Register(drivetrain);
-	NTProvider::Register(drivetrain);
+	_sparkMotor->SetInverted(true);
+	_talonMotor->SetInverted(false);
 }
 
-void Robot::RobotPeriodic() {
-	currentTimeStamp = Timer::GetFPGATimestamp();
-	dt = currentTimeStamp - lastTimeStamp;
-
-	StrategyController::Update(dt);
-	NTProvider::Update();
-
-	lastTimeStamp = currentTimeStamp;
-}
+void Robot::RobotPeriodic() {}
 
 // Dissabled Robot Logic
 void Robot::DisabledInit() {}
@@ -52,11 +38,39 @@ void Robot::AutonomousInit() {}
 void Robot::AutonomousPeriodic() {}
 
 // Manual Robot Logic
-void Robot::TeleopInit() {
-	Schedule(drivetrain->GetDefaultStrategy(), true); // Use manual strategy
-}
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopInit() {}
+void Robot::TeleopPeriodic() {
+	currentTime = Timer::GetFPGATimestamp();
+	dt = currentTime - lastTimeStamp;
 
-// Test Logic4
+	//motor examples
+	sparkSpeed = xbox->GetY(hand::kLeftHand);
+	_sparkMotor->Set(sparkSpeed);
+
+
+	talonSpeed = xbox->GetTriggerAxis(hand::kRightHand);
+	if (talonSpeed >= deadzone) { //acounts for the deadzone
+		_talonMotor->Set(talonSpeed);
+	} else {
+		_talonMotor->Set(0);
+	}
+
+	// ^ the equivilant using a conditional statement 
+	//talonSpeed = xbox->GetTriggerAxis(hand::kRightHand) > deadzone ? xbox->GetTriggerAxis(hand::kRightHand) : 0; _talonMotor->Set(talonSpeed);
+
+	if(xbox->GetXButton()) {
+		_solenoid.SetTarget(wml::actuators::BinaryActuatorState::kForward);
+	} else {
+		_solenoid.SetTarget(wml::actuators::BinaryActuatorState::kReverse);
+	}
+
+	_compressor.Update(dt);
+	_solenoid.Update(dt);
+
+	if (_solenoid.IsDone()) _solenoid.Stop();
+	lastTimeStamp = currentTime;
+}
+
+// Test Logic
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
