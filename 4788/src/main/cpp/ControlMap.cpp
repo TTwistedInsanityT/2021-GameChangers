@@ -33,6 +33,10 @@ const int ControlMap::BRport = 11;
 // Drivetrain speed
 const double ControlMap::MaxDrivetrainSpeed = 0.8;
 
+//Intake
+const int ControlMap::intakePort = 99;
+const int ControlMap::intakeEncoderTicks = 2049;
+
 // Robot Values
 const double ControlMap::TrackWidth = 0.56;
 const double ControlMap::TrackDepth = 0.60;

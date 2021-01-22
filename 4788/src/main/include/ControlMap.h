@@ -25,7 +25,7 @@ struct ControlMap {
 
 	// Deadzones
 	static const double XboxDeadzone;
-	static const double TriggerDeadzone;
+	static const double TriggerDeadzone = 0.1;
 
 	// PCM1
 	static const int PCModule;
@@ -41,3 +41,6 @@ struct ControlMap {
 	// Drivetrain
 	static const wml::controllers::tAxis DrivetrainLeft, DrivetrainRight;
 };
+
+//Intake System
+static const int intakePort, intakeEncoderTicks;

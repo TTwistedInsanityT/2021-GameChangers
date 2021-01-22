@@ -70,7 +70,7 @@ struct RobotMap {
 	// Controllers
 	wml::controllers::XboxController xbox1{ ControlMap::Xbox1Port };
 	wml::controllers::XboxController xbox2{ ControlMap::Xbox2Port };
-	wml::controllers::SmartControllerGroup contGroup{ xbox1, xbox2};
+	wml::controllers::SmartControllerGroup _contGroup{ xbox1, xbox2};
 
 	struct DriveSystem {
 
@@ -92,4 +92,9 @@ struct RobotMap {
 		wml::control::PIDGains gainsVelocity{"Drivetrain Velocity", 1};
 		wml::Drivetrain drivetrain{drivetrainConfig, gainsVelocity};
 	}; DriveSystem driveSystem;
+
+
+struct Intake {
+wml::TalonSrx intakeMotor{intakePort, intakeEncoderTicks
+}; Intake intake;
 };

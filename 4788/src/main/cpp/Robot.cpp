@@ -60,3 +60,6 @@ void Robot::TeleopPeriodic() {}
 // Test Logic4
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
+
+//Intake
+intake = new Intake(robotMap.intake.intakeMotor, robotMap.const);
