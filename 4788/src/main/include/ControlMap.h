@@ -18,6 +18,7 @@ struct ControlMap {
 
 	// Controllers
 	static const int Xbox1Port, Xbox2Port;
+	static const double TriggerDeadzone;
 
 	// USB port numbers
 	static const int Driver = 1;
@@ -44,3 +45,11 @@ struct ControlMap {
 
 //Intake System
 static const int intakePort, intakeEncoderTicks;
+
+//Intake
+#if __CONTROLMAP_USINJOYSTICK__
+
+#else
+static const wml::controllers::tAxis Intake;
+static const wml::controllers::tAxis Outake;
+#endif

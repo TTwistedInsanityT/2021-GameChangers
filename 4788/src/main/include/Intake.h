@@ -5,6 +5,9 @@ class Intake {
   public:
     Intake(wml::TalonSrx &intakeMotor, wml::controllers::SmartControllerGroup &_contGroup);
 
+    void runIntake(double power);
+    void stopIntake();
+
     void Teleop0nUpdate(double dt);
     void Auto0nUpdate(double dt);
     void Test0nUpdate(double dt);
@@ -14,6 +17,7 @@ class Intake {
 			wml::controllers::SmartControllerGroup &_contGroup;
       bool IntakeStop = false;
 			
+
 			frc::Timer timer;
 			double IntakePower = 0;
     };
