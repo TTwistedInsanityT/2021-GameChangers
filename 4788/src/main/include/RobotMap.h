@@ -94,7 +94,7 @@ struct RobotMap {
 	}; DriveSystem driveSystem;
 
 
-struct Intake {
-wml::TalonSrx intakeMotor{intakePort, intakeEncoderTicks
-}; Intake intake;
+	struct Intake {
+		wml::TalonSrx intakeMotor{intakePort}
+	}; Intake intake;
 };

@@ -9,6 +9,8 @@ double dt;
 
 // Robot Logiccd
 void Robot::RobotInit() {
+	//Intake
+	intake = new Intake(robotMap.intake.intakeMotor, robotMap.const);
 	// Init the controllers
 	ControlMap::InitsmartControllerGroup(robotMap.contGroup);
 
@@ -61,5 +63,3 @@ void Robot::TeleopPeriodic() {}
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
 
-//Intake
-intake = new Intake(robotMap.intake.intakeMotor, robotMap.const);

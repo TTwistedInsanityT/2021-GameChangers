@@ -33,9 +33,8 @@ const int ControlMap::BRport = 11;
 // Drivetrain speed
 const double ControlMap::MaxDrivetrainSpeed = 0.8;
 
-//Intake
-const int ControlMap::intakePort = 99;
-const int ControlMap::intakeEncoderTicks = 2049;
+// Intake
+const tAxis ControlMap::Outake{ CoDriver, XboxController::kLeftThrottle };
 
 // Robot Values
 const double ControlMap::TrackWidth = 0.56;
@@ -46,3 +45,7 @@ const double ControlMap::Mass = 50; // KG's
 // ------------------ Values ------------------
 const tAxis ControlMap::DrivetrainLeft{ Driver, XboxController::kLeftYAxis };
 const tAxis ControlMap::DrivetrainRight{ Driver, XboxController::kRightYAxis };
+
+// Intake
+const int ControlMap::IntakeMotorPort = 99;
+// const int ControlMap::intakeEncoderTicks = 2049;

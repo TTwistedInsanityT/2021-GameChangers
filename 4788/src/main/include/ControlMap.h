@@ -26,7 +26,7 @@ struct ControlMap {
 
 	// Deadzones
 	static const double XboxDeadzone;
-	static const double TriggerDeadzone = 0.1;
+	// static const double TriggerDeadzone = 0.1;
 
 	// PCM1
 	static const int PCModule;
@@ -36,20 +36,22 @@ struct ControlMap {
 	static const double MaxDrivetrainSpeed;
 	static const double TrackWidth, TrackDepth, WheelRadius, Mass;
 
-
+	//Intake
+	static const int IntakeMotorPort;
+	
 	// ------------------ Controls ------------------
 	
 	// Drivetrain
 	static const wml::controllers::tAxis DrivetrainLeft, DrivetrainRight;
 };
 
-//Intake System
-static const int intakePort, intakeEncoderTicks;
+// //Intake System
+// 	static const int intakePort;
 
 //Intake
-#if __CONTROLMAP_USINJOYSTICK__
+	// #if __CONTROLMAP_USINJOYSTICK__
 
-#else
-static const wml::controllers::tAxis Intake;
-static const wml::controllers::tAxis Outake;
-#endif
+	// #else
+	static const wml::controllers::tAxis Intake;
+	static const wml::controllers::tAxis Outake;
+	// #endif

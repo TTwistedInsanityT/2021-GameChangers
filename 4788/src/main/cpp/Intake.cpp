@@ -10,8 +10,8 @@ double constexpr deadzone = 0.1;
 
 void Intake::Teleop0nUpdate(double dt) {
 
-if(_contGroup.Get(ControlMap::DownIntake, Controllers::ONRISE)) {
-	_intakeMotor.SetVoltage(wml::actuators::BinaryActuatorState::kForward);
+	if(_contGroup.Get(ControlMap::DownIntake, Controllers::ONRISE)) {
+		_intakeMotor.SetVoltage(wml::actuators::BinaryActuatorState::kForward);
 	} else {
 		IntakePower = 0;
 	}
@@ -20,11 +20,11 @@ if(_contGroup.Get(ControlMap::DownIntake, Controllers::ONRISE)) {
 
 
 
-if() {
-	IntakePower = _contGroup.Get(ControlMap::Intake) > ControlMap::TriggerDeadzone ? _contGroup.Get(ControlMap::Intake) :
-	_contGroup.Get(ControlMap::Outake) > ControlMap::TriggerDeadzone ? -_contGroup.Get(ControlMap::Outake) : 0;
-} else {
-	IntakePower = 0;
+	if() {
+		IntakePower = _contGroup.Get(ControlMap::Intake) > ControlMap::TriggerDeadzone ? _contGroup.Get(ControlMap::Intake) :
+		_contGroup.Get(ControlMap::Outake) > ControlMap::TriggerDeadzone ? -_contGroup.Get(ControlMap::Outake) : 0;
+	} else {
+		IntakePower = 0;
 }
 
 
